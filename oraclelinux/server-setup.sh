@@ -72,9 +72,10 @@ GITLAB_IMAGE=gitlab/gitlab-ce:latest
 # 폴더가 존재하지 않는 경우 생성
 if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     mkdir -p "$GITLAB_VOLUME_DIR/logs"
-    echo "폴더가 생성되었습니다: $GITLAB_VOLUME_DIR/logs"
+    mkdir -p "$GITLAB_VOLUME_DIR/config"
+    echo "GITLAB 폴더가 생성되었습니다."
 else
-    echo "폴더가 이미 존재합니다: $GITLAB_VOLUME_DIR/logs"
+    echo "GITLAB 폴더는 이미 존재합니다"
 fi
 
 if docker ps -a --format '{{.Names}}' | grep -q "^$GITLAB_CONTAINER_NAME\$"; then
