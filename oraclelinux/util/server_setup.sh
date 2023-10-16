@@ -43,8 +43,6 @@ fi
 echo "(2/$TOTAL_STEP) 도커 설치 완료!"
 
 
-
-
 echo "(3/$TOTAL_STEP) GitLab 설치 시작"
 
 GITLAB_CONTAINER_NAME=gitlab
@@ -67,7 +65,7 @@ else
     # GitLab 컨테이너 실행하기 위한 변수 설정
     GITLAB_PORT=80
     GITLAB_HTTPS_PORT=443
-    GITLAB_SSH_PORT=7001
+    GITLAB_SSH_PORT=23
 
     # GitLab 컨테이너 실행
     echo "GitLab 컨테이너 실행 중..."
