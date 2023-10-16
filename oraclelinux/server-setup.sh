@@ -99,4 +99,4 @@ else
 	
 	echo "GitLab이 설정되었습니다. 웹 브라우저에서 http://$GITLAB_HOSTNAME 에서 액세스하세요."
 	
-echo '(3/${TOTAL_STEP}) gitalb 설치 완료'
+# echo '(3/${TOTAL_STEP}) gitalb 설치 완료'
