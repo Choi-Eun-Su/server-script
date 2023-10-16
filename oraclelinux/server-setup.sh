@@ -5,16 +5,6 @@ SLEEP_TIME=10
 
 echo '5초 뒤, 유틸 서버 셋업 시작...'
 sleep 5
-# echo '2.도커 사용자 이름을 입력 : '
-# read DOCKER_USER
-
-# echo '3-1. gitlab 볼륨 폴더 경로 : '
-# read GITLAB_VOLUME_DIR
-
-# echo '3-2. GITLAB HOSTNAME : '
-# read GITLAB_HOSTNAME
-
-
 
 
 
@@ -33,7 +23,7 @@ echo "(1/$TOTAL_STEP) dnf 업데이트 완료!"
 
 
 echo "(2/$TOTAL_STEP) 도커 설치 시작"
-DOCKER_USER = "anotherone"
+DOCKER_USER="anotherone"
 if command -v docker &> /dev/null; then
     echo "Docker가 이미 설치되어 있습니다. 도커 설치를 건너뜁니다."
 else
@@ -63,6 +53,7 @@ echo "(2/$TOTAL_STEP) 도커 설치 완료!"
 
 echo "(3/$TOTAL_STEP) GitLab 설치 시작"
 
+GITLAB_HOSTNAME=$(hostname -I | cut -d' ' -f1)
 GITLAB_CONTAINER_NAME=gitlab
 GITLAB_VOLUME_DIR=/storage/gitlab
 GITLAB_IMAGE=gitlab/gitlab-ce:latest
@@ -88,6 +79,7 @@ else
     # GitLab 컨테이너 실행
     echo "GitLab 컨테이너 실행 중..."
     docker run --detach \
+    	--hostname $GITLAB_HOSTNAME \
         --publish $GITLAB_HTTPS_PORT:443 --publish $GITLAB_PORT:80 --publish $GITLAB_SSH_PORT:22 \
         --name $GITLAB_CONTAINER_NAME \
         --volume $GITLAB_VOLUME_DIR/config:/etc/gitlab \
@@ -96,11 +88,11 @@ else
         $GITLAB_IMAGE
 
     # GitLab 초기 설정을 위한 대기
-    echo "GitLab 컨테이너가 실행 중입니다. 초기 설정을 위해 잠시 기다려주세요..."
+    echo "GitLab 컨테이너가 실행 중입니다. 초기 설정을 위해 60초를 기다려주세요..."
     sleep 60
 
     # GitLab 초기 설정
-    docker exec -it $GITLAB_CONTAINER_NAME gitlab-ctl reconfigure
+    sudo -u $DOCKER_USER docker exec -it $GITLAB_CONTAINER_NAME gitlab-ctl reconfigure
 
     echo "GitLab이 설정되었습니다. 웹 브라우저에서 http://$GITLAB_HOSTNAME 에서 액세스하세요."
 fi
