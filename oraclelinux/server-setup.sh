@@ -26,7 +26,7 @@ echo '(1/${TOTAL_STEP}) dnf 업데이트 완료!'
 
 echo '(2/${TOTAL_STEP}) 도커 설치 시작'
 
-if ! command -v docker &> /dev/null; then
+if command -v docker &> /dev/null; then
     echo "Docker가 이미 설치되어 있습니다. 도커 설치를 건너뜁니다."
 else
 	if [ -z "$DOCKER_USER" ]; then
