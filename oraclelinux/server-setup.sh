@@ -16,6 +16,8 @@ if dnf list installed &> /dev/null; then
     echo "시스템 업데이트를 이미 수행했습니다. 업데이트를 건너뜁니다."
 else
 	dnf update -y
+fi
+
 echo '(1/${TOTAL_STEP}) dnf 업데이트 완료!'
 
 
@@ -44,7 +46,8 @@ else
 	# 사용자 변경 내용 적용
 	su - $DOCKER_USER
 	echo "Docker가 설치되었고, $DOCKER_USER 사용자가 Docker 그룹에 추가되었습니다."
-	
+fi
+
 echo '(2/${TOTAL_STEP}) 도커 설치 완료!'
 
 
@@ -98,3 +101,5 @@ else
 	docker restart $GITLAB_CONTAINER_NAME
 	
 	echo "GitLab이 설정되었습니다. 웹 브라우저에서 http://$GITLAB_HOSTNAME 에서 액세스하세요."
+fi
+# echo '(3/${TOTAL_STEP}) gitalb 설치 완료'
