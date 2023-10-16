@@ -3,10 +3,10 @@
 TOTAL_STEP="10"
 SLEEP_TIME=10
 
-echo '유틸 서버 셋업 시작...'
-
-echo '2.도커 사용자 이름을 입력 : '
-read DOCKER_USER
+echo '5초 뒤, 유틸 서버 셋업 시작...'
+sleep 5
+# echo '2.도커 사용자 이름을 입력 : '
+# read DOCKER_USER
 
 # echo '3-1. gitlab 볼륨 폴더 경로 : '
 # read GITLAB_VOLUME_DIR
