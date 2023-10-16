@@ -19,20 +19,20 @@ read DOCKER_USER
 
 
 
-echo '(1/\${TOTAL_STEP}) dnf 업데이트 시작'
+echo "(1/\${TOTAL_STEP}) dnf 업데이트 시작"
 if dnf list installed &> /dev/null; then
     echo "시스템 업데이트를 이미 수행했습니다. 업데이트를 건너뜁니다."
 else
 	dnf update -y
 fi
 
-echo '(1/$TOTAL_STEP) dnf 업데이트 완료!'
+echo "(1/$TOTAL_STEP) dnf 업데이트 완료!"
 
 
 
 
 
-echo '(2/$TOTAL_STEP) 도커 설치 시작'
+echo "(2/$TOTAL_STEP) 도커 설치 시작"
 
 if command -v docker &> /dev/null; then
     echo "Docker가 이미 설치되어 있습니다. 도커 설치를 건너뜁니다."
@@ -56,7 +56,7 @@ else
 	echo "Docker가 설치되었고, $DOCKER_USER 사용자가 Docker 그룹에 추가되었습니다."
 fi
 
-echo '(2/$TOTAL_STEP) 도커 설치 완료!'
+echo "(2/$TOTAL_STEP) 도커 설치 완료!"
 
 
 
@@ -67,6 +67,15 @@ GITLAB_CONTAINER_NAME=gitlab
 GITLAB_VOLUME_DIR=/storage/gitlab
 GITLAB_HOSTNAME=gitlab.example.com
 GITLAB_IMAGE=gitlab/gitlab-ce:latest
+
+
+# 폴더가 존재하지 않는 경우 생성
+if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
+    mkdir -p "$GITLAB_VOLUME_DIR/logs"
+    echo "폴더가 생성되었습니다: $GITLAB_VOLUME_DIR/logs"
+else
+    echo "폴더가 이미 존재합니다: $GITLAB_VOLUME_DIR/logs"
+fi
 
 if docker ps -a --format '{{.Names}}' | grep -q "^$GITLAB_CONTAINER_NAME\$"; then
     echo "GitLab 컨테이너가 이미 설치되어 있습니다. GitLab 설치를 건너뜁니다."
