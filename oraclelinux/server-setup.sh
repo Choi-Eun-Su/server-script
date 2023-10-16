@@ -68,7 +68,6 @@ GITLAB_VOLUME_DIR=/storage/gitlab
 GITLAB_HOSTNAME=gitlab.example.com
 GITLAB_IMAGE=gitlab/gitlab-ce:latest
 
-
 # 폴더가 존재하지 않는 경우 생성
 if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     mkdir -p "$GITLAB_VOLUME_DIR/logs"
@@ -76,41 +75,38 @@ if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     mkdir -p "$GITLAB_VOLUME_DIR/data"
     echo "GITLAB 폴더가 생성되었습니다."
 else
-    echo "GITLAB 폴더는 이미 존재합니다"
+    echo "GITLAB 폴더는 이미 존재합니다."
 fi
 
 if docker ps -a --format '{{.Names}}' | grep -q "^$GITLAB_CONTAINER_NAME\$"; then
     echo "GitLab 컨테이너가 이미 설치되어 있습니다. GitLab 설치를 건너뜁니다."
 else
-	# GitLab 컨테이너 실행하기 위한 변수 설정
-	GITLAB_PORT=80
-	GITLAB_HTTPS_PORT=443
-	GITLAB_SSH_PORT=22
+    # GitLab 컨테이너 실행하기 위한 변수 설정
+    GITLAB_PORT=80
+    GITLAB_HTTPS_PORT=443
+    GITLAB_SSH_PORT=22
 
-	# GitLab 컨테이너 실행
-	echo "GitLab 컨테이너 실행 중..."
-	docker run --detach \
-	  --hostname $GITLAB_HOSTNAME \
-	  --publish $GITLAB_HTTPS_PORT:443 --publish $GITLAB_PORT:80 --publish $GITLAB_SSH_PORT:22 \
-	  --name $GITLAB_CONTAINER_NAME \
-	  --restart always \
-	  --volume $GITLAB_VOLUME_DIR/config:/etc/gitlab \
-	  --volume $GITLAB_VOLUME_DIR/logs:/var/log/gitlab \
-	  --volume $GITLAB_VOLUME_DIR/data:/var/opt/gitlab \
-	  $GITLAB_IMAGE
-	
-	# GitLab 초기 설정을 위한 대기
-	echo "GitLab 컨테이너가 실행 중입니다. 초기 설정을 위해 잠시 기다려주세요..."
-	sleep 60
-	
-	# GitLab 초기 설정
-	docker exec -it $GITLAB_CONTAINER_NAME gitlab-ctl reconfigure
-	
-	# GitLab 컨테이너 다시 시작
-	docker restart $GITLAB_CONTAINER_NAME
-	
-	echo "GitLab이 설정되었습니다. 웹 브라우저에서 http://$GITLAB_HOSTNAME 에서 액세스하세요."
+    # GitLab 컨테이너 실행
+    echo "GitLab 컨테이너 실행 중..."
+    docker run --detach \
+        --hostname $GITLAB_HOSTNAME \
+        --publish $GITLAB_HTTPS_PORT:443 --publish $GITLAB_PORT:80 --publish $GITLAB_SSH_PORT:22 \
+        --name $GITLAB_CONTAINER_NAME \
+        --volume $GITLAB_VOLUME_DIR/config:/etc/gitlab \
+        --volume $GITLAB_VOLUME_DIR/logs:/var/log/gitlab \
+        --volume $GITLAB_VOLUME_DIR/data:/var/opt/gitlab \
+        $GITLAB_IMAGE
+
+    # GitLab 초기 설정을 위한 대기
+    echo "GitLab 컨테이너가 실행 중입니다. 초기 설정을 위해 잠시 기다려주세요..."
+    sleep 60
+
+    # GitLab 초기 설정
+    docker exec -it $GITLAB_CONTAINER_NAME gitlab-ctl reconfigure
+
+    echo "GitLab이 설정되었습니다. 웹 브라우저에서 http://$GITLAB_HOSTNAME 에서 액세스하세요."
 fi
+
 echo "(3/$TOTAL_STEP) GitLab 설치 완료"
 
 
