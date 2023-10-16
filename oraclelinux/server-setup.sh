@@ -23,27 +23,21 @@ echo "(1/$TOTAL_STEP) dnf 업데이트 완료!"
 
 
 echo "(2/$TOTAL_STEP) 도커 설치 시작"
-DOCKER_USER="anotherone"
-if command -v docker &> /dev/null; then
-    echo "Docker가 이미 설치되어 있습니다. 도커 설치를 건너뜁니다."
-else
-	if [ -z "$DOCKER_USER" ]; then
-	  echo "사용자명을 제공해야 합니다."
-	  exit 1
-	fi
+# Check if Docker is already installed
+if ! command -v docker &> /dev/null; then
+    dnf install -y dnf-utils zip unzip
+	dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 	
-	# 도커 설치
-	sudo dnf install -y docker
-	# 도커 서비스 시작 및 활성화
-	sudo systemctl start docker
-	sudo systemctl enable docker
-	# Docker 그룹 생성 (이미 있는 경우에는 생략 가능)
-	sudo groupadd docker
-	# 사용자를 Docker 그룹에 추가
-	sudo usermod -aG docker $DOCKER_USER
-	# 사용자 변경 내용 적용
-	su - $DOCKER_USER
-	echo "Docker가 설치되었고, $DOCKER_USER 사용자가 Docker 그룹에 추가되었습니다."
+	dnf remove -y runc
+	dnf install -y docker-ce --nobest
+	
+    # Start and enable Docker service
+    systemctl start docker
+    systemctl enable docker
+    
+    echo "Docker has been installed and started."
+else
+    echo "Docker is already installed. Skipping installation."
 fi
 
 echo "(2/$TOTAL_STEP) 도커 설치 완료!"
@@ -102,5 +96,7 @@ echo "(3/$TOTAL_STEP) GitLab 설치 완료"
 
 
 
+
+echo "(4/$TOTAL_STEP) 방화벽 stop"
 
 
