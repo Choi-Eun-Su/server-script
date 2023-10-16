@@ -83,7 +83,7 @@ else
     # GitLab 컨테이너 실행하기 위한 변수 설정
     GITLAB_PORT=80
     GITLAB_HTTPS_PORT=443
-    GITLAB_SSH_PORT=22
+    GITLAB_SSH_PORT=7001
 
     # GitLab 컨테이너 실행
     echo "GitLab 컨테이너 실행 중..."
