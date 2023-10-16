@@ -19,7 +19,7 @@ read DOCKER_USER
 
 
 
-echo "(1/\${TOTAL_STEP}) dnf 업데이트 시작"
+echo "(1/$TOTAL_STEP) dnf 업데이트 시작"
 if dnf list installed &> /dev/null; then
     echo "시스템 업데이트를 이미 수행했습니다. 업데이트를 건너뜁니다."
 else
@@ -73,6 +73,7 @@ GITLAB_IMAGE=gitlab/gitlab-ce:latest
 if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     mkdir -p "$GITLAB_VOLUME_DIR/logs"
     mkdir -p "$GITLAB_VOLUME_DIR/config"
+    mkdir -p "$GITLAB_VOLUME_DIR/data"
     echo "GITLAB 폴더가 생성되었습니다."
 else
     echo "GITLAB 폴더는 이미 존재합니다"
