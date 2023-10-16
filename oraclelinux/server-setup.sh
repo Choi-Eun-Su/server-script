@@ -26,13 +26,13 @@ else
 	dnf update -y
 fi
 
-echo '(1/\${TOTAL_STEP}) dnf 업데이트 완료!'
+echo '(1/$TOTAL_STEP) dnf 업데이트 완료!'
 
 
 
 
 
-echo '(2/\${TOTAL_STEP}) 도커 설치 시작'
+echo '(2/$TOTAL_STEP) 도커 설치 시작'
 
 if command -v docker &> /dev/null; then
     echo "Docker가 이미 설치되어 있습니다. 도커 설치를 건너뜁니다."
@@ -56,12 +56,12 @@ else
 	echo "Docker가 설치되었고, $DOCKER_USER 사용자가 Docker 그룹에 추가되었습니다."
 fi
 
-echo '(2/\${TOTAL_STEP}) 도커 설치 완료!'
+echo '(2/$TOTAL_STEP) 도커 설치 완료!'
 
 
 
 
-echo "(3/\${TOTAL_STEP}) GitLab 설치 시작"
+echo "(3/$TOTAL_STEP) GitLab 설치 시작"
 
 GITLAB_CONTAINER_NAME=gitlab
 GITLAB_VOLUME_DIR=/storage/gitlab
@@ -100,7 +100,7 @@ else
 	
 	echo "GitLab이 설정되었습니다. 웹 브라우저에서 http://$GITLAB_HOSTNAME 에서 액세스하세요."
 fi
-echo "(3/\${TOTAL_STEP}) GitLab 설치 완료"
+echo "(3/$TOTAL_STEP) GitLab 설치 완료"
 
 
 
