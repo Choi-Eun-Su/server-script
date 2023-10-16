@@ -12,7 +12,10 @@ echo '3-2. GITLAB HOSTNAME : '
 read GITLAB_HOSTNAME
 
 echo '(1/${TOTAL_STEP}) dnf 업데이트 시작'
-dnf update -y
+if dnf list installed &> /dev/null; then
+    echo "시스템 업데이트를 이미 수행했습니다. 업데이트를 건너뜁니다."
+else
+	dnf update -y
 echo '(1/${TOTAL_STEP}) dnf 업데이트 완료!'
 
 
