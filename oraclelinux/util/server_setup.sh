@@ -138,7 +138,7 @@ sudo systemctl enable docker-gitlab
 echo -e "(5/$TOTAL_STEP) 서버 재부팅 시 gitlab 자동 실행 설정 완료\n\n"
 
 
-echo -e "(6/$TOTAL_STEP) 백업 디렉토리 생성 시작\n"
+echo -e "(6/$TOTAL_STEP) 백업 디렉토리 생성 시작"
 mkdir -p /storage/backup/log
 echo -e "(6/$TOTAL_STEP) 백업 디렉토리 생성 완료\n\n"
 
