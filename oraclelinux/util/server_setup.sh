@@ -1,10 +1,12 @@
 #!/bin/bash
 
-TOTAL_STEP="10"
+TOTAL_STEP="5"
 SLEEP_TIME=10
 
 echo '5초 뒤, 유틸 서버 셋업 시작...'
 sleep 5
+
+
 
 
 
@@ -17,6 +19,9 @@ else
 fi
 
 echo "(1/$TOTAL_STEP) dnf 업데이트 완료!"
+
+
+
 
 
 
@@ -41,6 +46,11 @@ else
 fi
 
 echo "(2/$TOTAL_STEP) 도커 설치 완료!"
+
+
+
+
+
 
 
 echo "(3/$TOTAL_STEP) GitLab 설치 시작"
@@ -93,6 +103,39 @@ echo "(3/$TOTAL_STEP) GitLab 설치 완료"
 
 
 
-echo "(4/$TOTAL_STEP) 방화벽 stop"
+echo "(4/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거"
+sudo systemctl stop firewalld
+sudo systemctl disable firewalld
+sudo systemctl mask firewalld
+echo "(4/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료"
 
 
+
+
+
+echo "(5/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거"
+file_name="/etc/systemd/system/docker-gitlab.service"
+new_content=$(cat <<EOF
+[Unit]
+Description=Docker and GitLab Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/docker start -a gitlab
+
+[Install]
+WantedBy=multi-user.target
+EOF
+)
+
+echo "$new_content" > "$file_name"
+sudo systemctl enable docker-gitlab
+echo "(5/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료"
+
+
+echo "설치가 완료되었습니다"
+echo "1. 스토리지 백업 정책을 셋팅해주세요"
+echo "2. 재부팅후 정상 동작하는지 확인해주세요"
