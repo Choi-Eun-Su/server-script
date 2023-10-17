@@ -11,4 +11,5 @@ Util용 서버 생성용...
 	4-2. 백업 스크림드 내려받기 curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_backup.sh > /storage/backup/storage_backup.sh
 	4-3. 스케줄러 설정
 	- crontab -e 설정 
-		. 0 2 * * 3 /storage/gitlab_backup.sh >> /storage/backup/log/$(date +\%Y\%m\%d).out
+		. 0 2 * * 3 /storage/backup/storage_backup.sh >> /storage/backup/log/$(date +\%Y\%m\%d).out
+

@@ -56,6 +56,7 @@ echo "(2/$TOTAL_STEP) 도커 설치 완료!"
 echo "(3/$TOTAL_STEP) GitLab 설치 시작"
 
 GITLAB_CONTAINER_NAME=gitlab
+GITLAB_HOSTNAME=anotherone.iptime.com
 GITLAB_VOLUME_DIR=/storage/gitlab
 GITLAB_IMAGE=gitlab/gitlab-ce:latest
 
@@ -80,6 +81,7 @@ else
     # GitLab 컨테이너 실행
     echo "GitLab 컨테이너 실행 중..."
     docker run --detach \
+		--hostname $GITLAB_HOSTNAME \
         --publish $GITLAB_HTTPS_PORT:443 --publish $GITLAB_PORT:80 --publish $GITLAB_SSH_PORT:22 \
         --name $GITLAB_CONTAINER_NAME \
         --volume $GITLAB_VOLUME_DIR/config:/etc/gitlab \
