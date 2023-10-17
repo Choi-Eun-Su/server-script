@@ -10,7 +10,7 @@ else
   STORAGE_NAME=$1
 fi
 
-if [ -z "$1" ]; then
+if [ -z "$2" ]; then
   BACKUP_DIR=/storage_backup01/
 else
   BACKUP_DIR=$2
