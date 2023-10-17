@@ -88,6 +88,7 @@ else
         --volume $GITLAB_VOLUME_DIR/config:/etc/gitlab \
         --volume $GITLAB_VOLUME_DIR/logs:/var/log/gitlab \
         --volume $GITLAB_VOLUME_DIR/data:/var/opt/gitlab \
+        --volume $GITLAB_VOLUME_DIR/backups:/var/opt/gitlab/backups \
         $GITLAB_IMAGE
 
     # GitLab 초기 설정을 위한 대기
