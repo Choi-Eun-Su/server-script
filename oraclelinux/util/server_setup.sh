@@ -115,7 +115,7 @@ echo "(4/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료"
 
 
 
-echo "(5/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거"
+echo "(5/$TOTAL_STEP) 서버 재부팅 시 gitlab 자동 실행 설정 시작"
 file_name="/etc/systemd/system/docker-gitlab.service"
 new_content=$(cat <<EOF
 [Unit]
@@ -135,16 +135,16 @@ EOF
 
 echo "$new_content" > "$file_name"
 sudo systemctl enable docker-gitlab
-echo "(5/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료"
+echo "(5/$TOTAL_STEP) 서버 재부팅 시 gitlab 자동 실행 설정 완료\n"
 
 
 echo "(6/$TOTAL_STEP) 백업 디렉토리 생성 시작"
 mkdir -p /storage/backup/log
-echo "(6/$TOTAL_STEP) 백업 디렉토리 생성 완료"
+echo "(6/$TOTAL_STEP) 백업 디렉토리 생성 완료\n"
 
 
 
-
+echo "\n"
 
 echo "설치가 완료되었습니다"
 echo "1. 스토리지 백업 정책을 셋팅해주세요"
