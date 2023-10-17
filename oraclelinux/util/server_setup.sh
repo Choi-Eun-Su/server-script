@@ -65,6 +65,7 @@ if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     mkdir -p "$GITLAB_VOLUME_DIR/logs"
     mkdir -p "$GITLAB_VOLUME_DIR/config"
     mkdir -p "$GITLAB_VOLUME_DIR/data"
+    mkdir -p "$GITLAB_VOLUME_DIR/backups"
     echo "GITLAB 폴더가 생성되었습니다."
 else
     echo "GITLAB 폴더는 이미 존재합니다."
