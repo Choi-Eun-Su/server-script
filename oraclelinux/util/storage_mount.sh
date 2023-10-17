@@ -10,9 +10,15 @@ else
   STORAGE_NAME=$1
 fi
 
-echo "$STORAGE_NAME"
+if [ -z "$1" ]; then
+  BACKUP_DIR=/storage_backup01/
+else
+  BACKUP_DIR=$2
+fi
 
-new_content="$STORAGE_NAME /storage_backup01/ ext4 defaults 0 0"
+
+
+new_content="$STORAGE_NAME $BACKUP_DIR ext4 defaults 0 0"
 
 # 기존 파일의 내용을 변수에 저장합니다.
 existing_content=$(cat /etc/fstab)
