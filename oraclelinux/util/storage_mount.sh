@@ -15,7 +15,7 @@ if [[ $existing_content == *"$new_content"* ]]; then
     echo "추가할 내용이 이미 파일에 존재합니다. 추가하지 않습니다."
 else
     # 기존 내용에 추가할 내용을 더하고 파일에 덮어씁니다.
-    echo -e"$existing_content\n$new_content" > /etc/fstab
+    echo -e "$existing_content\n$new_content" > /etc/fstab
     echo "새로운 내용을 추가했습니다."
 fi
 
