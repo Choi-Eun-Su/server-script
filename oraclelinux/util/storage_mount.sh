@@ -4,7 +4,14 @@
 # echo -n "입력: "
 # read STORAGE_NAME
 
-STORAGE_NAME=/dev/sdb1
+if [ -z "$1" ]; then
+  STORAGE_NAME=/dev/sdb1
+else
+  STORAGE_NAME=$1
+fi
+
+echo "$STORAGE_NAME"
+
 new_content="$STORAGE_NAME /storage_backup01/ ext4 defaults 0 0"
 
 # 기존 파일의 내용을 변수에 저장합니다.
