@@ -19,6 +19,6 @@ else
     echo "새로운 내용을 추가했습니다."
 fi
 
-sudo mount -a
+mount -a
 
 echo "df -h 명령어를 활용하여 정상적으로 마운트 되었는지 확인해주세요"
