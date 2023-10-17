@@ -18,7 +18,7 @@ else
 	dnf update -y
 fi
 
-echo -e "(1/$TOTAL_STEP) dnf 업데이트 완료!\n\n"
+echo -e "(1/$TOTAL_STEP) dnf 업데이트 완료!\n"
 
 
 
@@ -45,7 +45,7 @@ else
     echo "도커가 이미 설치되어있습니다."
 fi
 
-echo -e "(2/$TOTAL_STEP) 도커 설치 완료!\n\n"
+echo -e "(2/$TOTAL_STEP) 도커 설치 완료!\n"
 
 
 
@@ -99,7 +99,7 @@ else
     echo "GitLab이 설정되었습니다."
 fi
 
-echo -e "(3/$TOTAL_STEP) GitLab 설치 완료\n\n"
+echo -e "(3/$TOTAL_STEP) GitLab 설치 완료\n"
 
 
 
@@ -109,7 +109,7 @@ echo -e "(4/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 시작"
 sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask firewalld
-echo -e "(4/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료\n\n"
+echo -e "(4/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료\n"
 
 
 
@@ -135,12 +135,12 @@ EOF
 
 echo "$new_content" > "$file_name"
 sudo systemctl enable docker-gitlab
-echo -e "(5/$TOTAL_STEP) 서버 재부팅 시 gitlab 자동 실행 설정 완료\n\n"
+echo -e "(5/$TOTAL_STEP) 서버 재부팅 시 gitlab 자동 실행 설정 완료\n"
 
 
 echo -e "(6/$TOTAL_STEP) 백업 디렉토리 생성 시작"
 mkdir -p /storage/backup/log
-echo -e "(6/$TOTAL_STEP) 백업 디렉토리 생성 완료\n\n"
+echo -e "(6/$TOTAL_STEP) 백업 디렉토리 생성 완료\n"
 
 
 
