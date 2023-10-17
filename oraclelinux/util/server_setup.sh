@@ -69,7 +69,10 @@ if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     # 외장하드 백업 스토리지 설정...
 	STORAGE_NAME=/dev/sdb1
 	BACKUP_DIR=$GITLAB_VOLUME_DIR/backups
-	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_mount.sh $STORAGE_NAME $BACKUP_DIR)"
+	curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_mount.sh > ./storage_mount.sh
+	chmod 777 storage_mount.sh
+	./storage_mount.sh $STORAGE_NAME $BACKUP_DIR
+	rm -rf ./storage_mount.sh
 	
     echo "GITLAB 폴더가 생성되었습니다."
 else
