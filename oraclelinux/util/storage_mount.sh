@@ -35,7 +35,7 @@ else
     echo "새로운 내용을 추가했습니다."
 fi
 
-sleep(1)
+sleep 1
 
 sudo mount -a
 
