@@ -9,7 +9,7 @@ if [ -z "$1" ] || [ -z "$2" ]; then
   BACKUP_DIR=/storage_backup01/
   echo "default 값으로 설정되었습니다."
   echo "만약에 STORAGE_NAME과 BACKUP_DIR를 설정하고자 한다면, 파라미터를 넘겨주세요"
-  echo "($1:STORAGE_NAME, $2:BACKUP_DIR)"
+  echo "(STORAGE_NAME, BACKUP_DIR)"
 else
   STORAGE_NAME=$1
   BACKUP_DIR=$2
