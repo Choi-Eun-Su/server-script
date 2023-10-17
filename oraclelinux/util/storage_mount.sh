@@ -21,7 +21,7 @@ fi
 
 sleep(1)
 
-mount -a
+sudo mount -a
 
 echo "마운트 완료!!"
 echo -e "명령어를 활용하여 정상적으로 마운트 되었는지 확인해주세요\n\n"
