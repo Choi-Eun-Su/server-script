@@ -136,6 +136,14 @@ sudo systemctl enable docker-gitlab
 echo "(5/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료"
 
 
+echo "(6/$TOTAL_STEP) 백업 디렉토리 생성 시작"
+mkdir -p /storage/backup/log
+echo "(6/$TOTAL_STEP) 백업 디렉토리 생성 완료"
+
+
+
+
+
 echo "설치가 완료되었습니다"
 echo "1. 스토리지 백업 정책을 셋팅해주세요"
 echo "2. 재부팅후 정상 동작하는지 확인해주세요"
