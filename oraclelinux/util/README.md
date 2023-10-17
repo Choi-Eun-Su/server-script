@@ -7,9 +7,11 @@ Util용 서버 생성용...
 	- 서버 시작 후, docker & gitlab 등 자동으로 실행
 3. gitlab root 계정 패스워드 확인        bash -c "$(curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/gitlab_init.sh)"
 4. storage 백업 설정
-	4-1. 외장하드 마운트 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_mount.sh)"
-	4-2. 백업 스크림드 내려받기 curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_backup.sh > /storage/backup/storage_backup.sh
-	4-3. 스케줄러 설정
+	4-1. gnome-disks를 활용하여 직접 하드디스크를 마운트한다.
+	4-2. 재부팅후 자동으로 마운트 되도록 하기 위하여 다음 스크립트를 실행한다  
+		bash -c "$(curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_mount.sh)"
+	4-3. 백업 스크림드 내려받기 curl -fsSL https://raw.githubusercontent.com/Choi-Eun-Su/server-script/master/oraclelinux/util/storage_backup.sh > /storage/backup/storage_backup.sh
+	4-4. 스케줄러 설정
 	- crontab -e 설정 
 		. 0 2 * * 3 /storage/backup/storage_backup.sh >> /storage/backup/log/$(date +\%Y\%m\%d).out
 
