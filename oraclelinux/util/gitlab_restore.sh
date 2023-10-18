@@ -17,7 +17,7 @@ docker exec -it gitlab sh -c "gitlab-ctl stop unicorn"
 docker exec -it gitlab sh -c "gitlab-ctl stop puma"
 docker exec -it gitlab sh -c "gitlab-ctl stop sidekiq"
 
-
+chmod 777 $BACKUP_DESTINATION/*
 docker exec -it gitlab gitlab-backup restore BACKUP=$FILE_NAME  # YYYYMMDD를 복원할 백업 파일의 날짜로 대체
 docker cp $BACKUP_DESTINATION/gitlab-secrets.json gitlab:/etc/gitlab/gitlab-secrets.json
 docker cp $BACKUP_DESTINATION/gitlab.rb gitlab:/etc/gitlab/gitlab.rb
