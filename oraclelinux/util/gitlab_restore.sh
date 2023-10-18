@@ -1,18 +1,26 @@
 #!/bin/bash
 
-# 변수 설정
-CONTAINER_NAME="gitlab"
-BACKUP_VOLUME="/storage/gitlab"
-BACKUP_SOURCE="/storage_backup01/YYYY-MM-DD" # 백업 디렉토리를 적절한 날짜로 업데이트
+BACKUP_DESTINATION=/storage/gitlab/backups
+echo "백업 파일 이름을 입력해주세요"
+read FILE_NAME
 
-# GitLab 컨테이너를 정지합니다.
-docker stop $CONTAINER_NAME
+# gitlab 컨테이너 내부에 있는 psql 셋팅 해줘야함. restore 시, 아래 에러를 없애기 위함임
+# ERROR:  must be owner of extension pg_trgm
+# ERROR:  must be owner of extension btree_gist
+# ERROR:  must be owner of extension btree_gist
+# ERROR:  must be owner of extension pg_trgm
 
-# 백업 디렉토리를 볼륨에 복사합니다.
-docker run --rm -v $BACKUP_VOLUME:/destination -v $BACKUP_SOURCE:/source alpine cp -r /source /destination
 
-# GitLab 컨테이너를 다시 시작합니다.
-docker start $CONTAINER_NAME
+# 복원할 백업 파일 경로 지정
+# GitLab 컨테이너 내에서 복원 명령 실행
+docker exec -it gitlab sh -c "gitlab-ctl stop unicorn"
+docker exec -it gitlab sh -c "gitlab-ctl stop puma"
+docker exec -it gitlab sh -c "gitlab-ctl stop sidekiq"
 
-# 복원 완료 메시지
-echo "GitLab 복원이 완료되었습니다."
+
+docker exec -it gitlab gitlab-backup restore BACKUP=$FILE_NAME  # YYYYMMDD를 복원할 백업 파일의 날짜로 대체
+docker cp $BACKUP_DESTINATION/gitlab-secrets.json gitlab:/etc/gitlab/gitlab-secrets.json
+docker cp $BACKUP_DESTINATION/gitlab.rb gitlab:/etc/gitlab/gitlab.rb
+
+# 복원 후 GitLab 컨테이너 재시작
+docker restart gitlab

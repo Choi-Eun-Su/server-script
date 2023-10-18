@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# 변수 설정
-CONTAINER_NAME="gitlab"
-BACKUP_VOLUME="/storage/gitlab"
-BACKUP_DESTINATION="/storage_backup01/$(date +\%Y-\%m-\%d)"
+# 현재 날짜를 가져옴 (예: 20231017)
+BACKUP_DESTINATION=/storage/gitlab/backups
 
-# GitLab 컨테이너를 정지합니다.
-docker stop $CONTAINER_NAME
+# GitLab 컨테이너 내에서 백업 명령 실행
+docker exec -t gitlab gitlab-backup create
 
-# 볼륨을 백업 디렉토리로 복사합니다.
-docker run --rm -v $BACKUP_VOLUME:/source -v $BACKUP_DESTINATION:/destination alpine cp -r /source /destination
+# 설정파일도 백업
+docker cp gitlab:/etc/gitlab/gitlab-secrets.json $BACKUP_DESTINATION/gitlab-secrets.json
+docker cp gitlab:/etc/gitlab/gitlab.rb $BACKUP_DESTINATION/gitlab.rb
 
-# GitLab 컨테이너를 다시 시작합니다.
-docker start $CONTAINER_NAME
-
-# 백업 완료 메시지
-echo "GitLab 백업이 완료되었습니다. 백업 디렉토리: $BACKUP_DESTINATION"
+# 백업 파일을 일정 기간 이상 보관하려면 추가 작업 필요
+# 예를 들어, 일주일 이상된 백업 파일을 삭제하는 로직을 추가할 수 있음
+~
+~
+~
+~

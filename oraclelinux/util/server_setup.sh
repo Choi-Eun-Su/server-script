@@ -8,7 +8,7 @@ sleep $SLEEP_TIME
 
 
 GITLAB_CONTAINER_NAME=gitlab
-GITLAB_HOSTNAME=anotherone.iptime.com
+GITLAB_HOSTNAME=anotherone.iptime.org
 GITLAB_VOLUME_DIR=/storage/gitlab
 GITLAB_IMAGE=gitlab/gitlab-ce:latest
 
@@ -65,6 +65,7 @@ if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
     mkdir -p "$GITLAB_VOLUME_DIR/config"
     mkdir -p "$GITLAB_VOLUME_DIR/data"
     mkdir -p "$GITLAB_VOLUME_DIR/backups"
+    echo "GITLAB 폴더가 생성되었습니다."
     
     # 외장하드 백업 스토리지 설정...
 	STORAGE_NAME=/dev/sdb1
@@ -73,8 +74,6 @@ if [ ! -d "$GITLAB_VOLUME_DIR" ]; then
 	chmod 777 storage_mount.sh
 	./storage_mount.sh $STORAGE_NAME $BACKUP_DIR
 	rm -rf ./storage_mount.sh
-	
-    echo "GITLAB 폴더가 생성되었습니다."
 else
     echo "GITLAB 폴더는 이미 존재합니다."
 fi
@@ -108,8 +107,6 @@ else
 fi
 
 echo -e "(3/$TOTAL_STEP) GitLab 설치 완료\n"
-
-
 
 
 
