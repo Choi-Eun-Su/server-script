@@ -29,7 +29,7 @@ else
 fi
 
 echo -e "($CURRENT_STEP/$TOTAL_STEP) dnf 업데이트 완료!\n"
-$CURRENT_STEP=$CURRENT_STEP+1
+CURRENT_STEP=$CURRENT_STEP+1
 
 
 
@@ -54,7 +54,7 @@ else
 fi
 
 echo -e "($CURRENT_STEP/$TOTAL_STEP) 도커 설치 완료!\n"
-$CURRENT_STEP=$CURRENT_STEP+1
+CURRENT_STEP=$CURRENT_STEP+1
 
 
 
@@ -112,7 +112,13 @@ else
 fi
 
 echo -e "($CURRENT_STEP/$TOTAL_STEP) GitLab 설치 완료\n"
-$CURRENT_STEP=$CURRENT_STEP+1
+CURRENT_STEP=$CURRENT_STEP+1
+
+
+
+
+
+
 
 
 echo -e "($CURRENT_STEP/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 시작"
@@ -120,7 +126,12 @@ sudo systemctl stop firewalld
 sudo systemctl disable firewalld
 sudo systemctl mask firewalld
 echo -e "($CURRENT_STEP/$TOTAL_STEP) 방화벽 stop 및 자동 실행 제거 완료\n"
-$CURRENT_STEP=$CURRENT_STEP+1
+CURRENT_STEP=$CURRENT_STEP+1
+
+
+
+
+
 
 
 
@@ -151,7 +162,14 @@ $CURRENT_STEP=$CURRENT_STEP+1
 echo -e "($CURRENT_STEP/$TOTAL_STEP) 백업 설정 디렉토리 생성 시작"
 mkdir -p /storage/backup/log
 echo -e "($CURRENT_STEP/$TOTAL_STEP) 백업 설정 디렉토리 생성 완료\n"
-$CURRENT_STEP=$CURRENT_STEP+1
+CURRENT_STEP=$CURRENT_STEP+1
+
+
+
+
+
+
+
 
 
 echo -e "설치가 완료되었습니다"
