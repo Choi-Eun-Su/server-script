@@ -10,8 +10,10 @@ docker exec -t gitlab gitlab-backup create
 docker cp gitlab:/etc/gitlab/gitlab-secrets.json $BACKUP_DESTINATION/gitlab-secrets.json
 docker cp gitlab:/etc/gitlab/gitlab.rb $BACKUP_DESTINATION/gitlab.rb
 
-# 백업 파일을 일정 기간 이상 보관하려면 추가 작업 필요
-# 예를 들어, 일주일 이상된 백업 파일을 삭제하는 로직을 추가할 수 있음
+
+
+# 백업 파일이 4개 이상이면, 가장 오래된 tar 파일 삭제함
+
 # .tar 파일 목록 가져오기
 tar_files=("$BACKUP_DESTINATION"/*.tar)
 
