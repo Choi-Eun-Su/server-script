@@ -36,10 +36,10 @@ echo -e "($CURRENT_STEP/$TOTAL_STEP) postgresql 도커 컨테이너 생성 시�
 if docker ps -a --format '{{.Names}}' | grep -q "^$POSTGRESQL_CONTAINER_NAME\$"; then
     echo "Postgresql 컨테이너가 이미 설치되어 있습니다. 설치를 건너뜁니다."
 else
-	docker run 
-		--name $POSTGRESQL_CONTAINER_NAME 
-		-e POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD 
-		-d -p 5432:5432 
+	docker run \
+		--name $POSTGRESQL_CONTAINER_NAME \
+		-e POSTGRES_PASSWORD=$POSTGRESQL_PASSWORD \
+		-d -p 5432:5432 \
 		-v $MOUNT_FOLDER:/var/lib/postgresql/data postgres:latest
 	
 	echo "postgresql 도커 컨테이너 생성 및 초기화를 위하여 1분간 대기중..."
