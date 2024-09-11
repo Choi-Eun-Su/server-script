@@ -51,3 +51,28 @@ fi
 
 echo -e "($CURRENT_STEP/$TOTAL_STEP) postgresql 도커 컨테이너 생성 완료!\n"
 CURRENT_STEP=$CURRENT_STEP+1
+
+
+
+echo -e "($CURRENT_STEP/$TOTAL_STEP) 서버 재부팅 시 postgresql 자동 실행 설정 시작"
+file_name="/etc/systemd/system/docker-postgresql.service"
+new_content=$(cat <<EOF
+[Unit]
+Description=Docker and PostgreSQL Service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/docker start postgres-container
+
+[Install]
+WantedBy=multi-user.target
+EOF
+)
+
+echo "$new_content" > "$file_name"
+sudo systemctl enable docker-postgresql
+echo -e "($CURRENT_STEP/$TOTAL_STEP) 서버 재부팅 시 postgresql 자동 실행 설정 완료\n"
+$CURRENT_STEP=$CURRENT_STEP+1
